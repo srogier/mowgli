@@ -1,0 +1,15 @@
+<?php
+
+namespace {{ namespace }}\Container;
+
+use Mowgli\Container\Container as BaseContainer;
+
+class Container extends BaseContainer
+{
+    protected function initialize()
+    {
+        $this['application_name'] = '{{ application_name }}';
+        $this['namespace']        = '{{ namespace }}';
+        $this['version']          = 'DEV';
+    }
+}

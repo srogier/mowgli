@@ -1,0 +1,36 @@
+<?php
+
+namespace {{ namespace }}\Command;
+
+use Mowgli\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
+
+
+/**
+ *
+ */
+class {{ class_name }} extends Command
+{
+
+    protected function configure()
+    {
+        $this
+            ->setName('{{ command_name }}')
+            ->setDescription('{{ command_name }} description')
+            ->setHelp(<<<EOF
+Help for <info>{{ command_name }}</info> command
+
+    <info>php {{ application_launcher }} {{ command_name }}</info>
+                      
+EOF
+            );
+    }   
+    
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        
+    }
+
+}

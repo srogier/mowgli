@@ -1,0 +1,19 @@
+<?php
+
+require_once __DIR__ . '/../vendor/Mowgli/vendor/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+
+$loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
+$loader->registerNamespaces(array(
+    'Symfony'   => __DIR__ . '/../vendor/Mowgli/vendor',
+    'Mowgli'      => __DIR__ . '/../vendor',
+    '{{ namespace }}'  => __DIR__ ,
+));
+     
+$loader->registerPrefixes(array(
+    'Pimple' => __DIR__.'/../vendor/Mowgli/vendor/Pimple/lib',
+));
+     
+$loader->register();
+
+
+

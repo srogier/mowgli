@@ -1,0 +1,4 @@
+config:
+  application_name: Mowgli
+  version:          1.0beta1
+  namespace:        sro\Mowgli

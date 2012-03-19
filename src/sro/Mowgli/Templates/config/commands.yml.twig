@@ -1,0 +1,5 @@
+commands: {% if commands|length == 0 %}[]{% endif %}
+
+{% for command in commands %}
+  - {{ command }}
+{% endfor %}

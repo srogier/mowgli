@@ -1,0 +1,8 @@
+commands: 
+  - \sro\Mowgli\Command\Help
+  - \sro\Mowgli\Command\ListCommand
+  - \sro\Mowgli\Command\GenerateProject
+  - \sro\Mowgli\Command\GenerateCommand
+  - \sro\Mowgli\Command\Config
+  - sro\Mowgli\Command\Install
+  - sro\Mowgli\Command\Compile

@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/../src/autoload.php';
+
+use \sro\Mowgli\Application;
+use \sro\Mowgli\Container\Factory;
+use \Mowgli\Container\Builder;
+
+$containerBuilder = new Builder(new Factory());
+$containerBuilder
+    ->addOptions(array('root_dir' => realpath(__DIR__ . '/..')))
+    ->addConfFile(__DIR__ . '/../config/config.yml', 'config')
+;
+
+$application = new Application($containerBuilder->build());
+$application->run();

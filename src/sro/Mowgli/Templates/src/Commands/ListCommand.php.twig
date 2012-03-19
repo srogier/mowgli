@@ -1,0 +1,37 @@
+<?php
+
+namespace {{ namespace }}\Command;
+
+use Symfony\Component\Console\Command\ListCommand as BaseListCommand;
+
+class ListCommand extends BaseListCommand
+{
+    /**
+     * {@inheritdoc}
+     */
+    protected function configure()
+    {
+        parent::configure();
+        
+        $this
+            ->setHelp(<<<EOF
+The <info>list</info> command lists all commands:
+
+  <info>{{ application_name }} list</info>
+
+You can also display the commands for a specific namespace:
+
+  <info>{{ application_name }} list test</info>
+
+You can also output the information as XML by using the <comment>--xml</comment> option:
+
+  <info>{{ application_name }} list --xml</info>
+
+It's also possible to get raw list of commands (useful for embedding command runner):
+
+  <info>{{ application_name }} list --raw</info>
+EOF
+            );
+    }
+
+}

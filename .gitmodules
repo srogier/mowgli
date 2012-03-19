@@ -1,0 +1,24 @@
+[submodule "vendor/Mowgli/vendor/Symfony/Component/Console"]
+	path = vendor/Mowgli/vendor/Symfony/Component/Console
+	url = git://github.com/symfony/Console.git
+[submodule "vendor/Mowgli/vendor/Symfony/Component/ClassLoader"]
+	path = vendor/Mowgli/vendor/Symfony/Component/ClassLoader
+	url = git://github.com/symfony/ClassLoader.git
+[submodule "vendor/Mowgli/vendor/Symfony/Component/Filesystem"]
+	path = vendor/Mowgli/vendor/Symfony/Component/Filesystem
+	url = git://github.com/symfony/Filesystem.git
+[submodule "vendor/Mowgli/vendor/Symfony/Component/Finder"]
+	path = vendor/Mowgli/vendor/Symfony/Component/Finder
+	url = git://github.com/symfony/Finder.git
+[submodule "vendor/Mowgli/vendor/Symfony/Component/Process"]
+	path = vendor/Mowgli/vendor/Symfony/Component/Process
+	url = git://github.com/symfony/Process.git
+[submodule "vendor/Mowgli/vendor/Symfony/Component/Yaml"]
+	path = vendor/Mowgli/vendor/Symfony/Component/Yaml
+	url = git://github.com/symfony/Yaml.git
+[submodule "vendor/Twig"]
+	path = vendor/Twig
+	url = git://github.com/fabpot/Twig.git
+[submodule "vendor/Mowgli/vendor/Pimple"]
+	path = vendor/Mowgli/vendor/Pimple
+	url = git://github.com/fabpot/Pimple

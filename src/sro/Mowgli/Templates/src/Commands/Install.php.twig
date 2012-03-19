@@ -1,0 +1,106 @@
+<?php
+
+namespace {{ namespace }}\Command;
+
+use Mowgli\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
+
+
+class Install extends Command
+{
+
+    protected function configure()
+    {
+        $this
+            ->setName('install')
+            ->setDescription('Installs your project in your filesystem')
+            ->setDefinition(array(
+                 new InputArgument('install_path', InputArgument::OPTIONAL, 'Base directory where application will be installed', '/usr/local'),
+            ))
+            ->setHelp(<<<EOF
+The <info>install</info> command will deploy your application in a directory:
+
+    <info>{{ application_name }} install destination_dir</info>
+                      
+EOF
+        );
+    }
+
+     /**
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @return int|void
+     * @throws \InvalidArgumentException
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $container   = $this->getContainer();
+        $installPath = $input->getArgument('install_path');
+        if (!is_writable($installPath))
+        {
+            throw new \InvalidArgumentException(sprintf('You can\'t write in %s', $installPath));
+        }
+
+        $applicationName = $this->getApplication()->getName();
+        $paths           = $this->getPaths($installPath, $applicationName);
+        if (is_readable($paths['share']))
+        {
+            throw new \InvalidArgumentException(sprintf('The directory %s is existing', $paths['share']));
+        }
+
+        $fs = $container['fs'];
+        $fs->mkdir($paths['share']);
+
+        if ($this->isLaunchedWithPhar())
+        {
+            //if it's a phar archive => extract it in a directory
+            /** @var \Symfony\Component\Filesystem\Filesystem $fs  */
+            $phar = new \Phar($container['root_dir']);
+            $phar->extractTo($paths['share']);
+        }
+        else
+        {
+            $fs->mirror($container['root_dir'], $paths['share']);
+        }
+
+        if (!file_exists($paths['bin']))
+        {
+            $fs->mkdir($paths['bin']);
+        }
+
+        //create shortcut for application
+        $fs->chmod($paths['share_launcher'], 0777);
+        $fs->symlink($paths['share_launcher'], $paths['bin_launcher']);
+        
+        $output->writeln(sprintf(
+            '%s has been installed in %s',
+            $applicationName,
+            $installPath
+        ));
+        
+        $output->writeln(sprintf(
+            'Make sure "%s" is included in your "$PATH", so you can launch %s with the command "%s"',
+            $paths['bin_launcher'],
+            $applicationName,
+            strtolower($applicationName)
+        ));
+    }
+
+    /**
+     * @param $installPath
+     * @param $applicationName
+     *
+     * @return array
+     */
+    protected function getPaths($installPath, $applicationName)
+    {
+        return array(
+            'share'          => $installPath . '/share/' . $applicationName,
+            'share_launcher' => $installPath . '/share/' . $applicationName . '/bin/' . strtolower($applicationName),
+            'bin'            => $installPath . '/bin',
+            'bin_launcher'   => $installPath . '/bin/' . strtolower($applicationName),
+        );
+    }
+}
