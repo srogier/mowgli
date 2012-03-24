@@ -32,10 +32,18 @@ class Configuration
      */
     public function get($key)
     {
+        $moglyFlagFile = $this->getRootDir() . DIRECTORY_SEPARATOR . self::MOWGLI_FLAG;
+        if (!is_file($moglyFlagFile))
+        {
+            throw new \RuntimeException(sprintf(
+                'Mogly Flag File [%s] not found',
+                $moglyFlagFile
+            ));
+        }
+        $executable   = trim(file_get_contents($moglyFlagFile));
         $cmd = sprintf(
-            '`cat %s/%s` config %s',
-            $this->getRootDir(),
-            self::MOWGLI_FLAG,
+            '%s config %s',
+            escapeshellarg($executable),
             escapeshellarg($key)
         );
 
